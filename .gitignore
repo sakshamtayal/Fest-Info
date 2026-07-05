@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment variables (NEVER push this — contains your MongoDB URI)
+.env
+
+# Mac system files
+.DS_Store
+
+# Logs
+npm-debug.log*
+nodemon-debug.log*
+*.log
+
+# Runtime
+pids
+*.pid
+*.seed

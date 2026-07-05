@@ -1,0 +1,63 @@
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Routes
+app.use('/api/events', require('./routes/events'));
+app.use('/api/societies', require('./routes/societies'));
+app.use('/api/college-events', require('./routes/collegeEvents'));
+
+// Health check
+app.get('/api/health', (req, res) => {
+  const dbStatus = mongoose.connection.readyState;
+  // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
+  const statusMap = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+  res.json({ status: 'ok', db: statusMap[dbStatus] || 'unknown' });
+});
+
+// SPA fallback - serve index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+// MongoDB connection (non-blocking - server starts regardless)
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      bufferCommands: false,
+    });
+    console.log('✅ MongoDB connected');
+  } catch (err) {
+    console.warn('⚠️  MongoDB connection failed. Running in offline/cache mode.');
+    console.warn('   Data will be served from cache if available.');
+    // Retry connection every 30 seconds
+    setTimeout(connectDB, 30000);
+  }
+};
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('⚠️  MongoDB disconnected. Retrying in 30s...');
+  setTimeout(connectDB, 30000);
+});
+
+mongoose.connection.on('reconnected', () => {
+  console.log('✅ MongoDB reconnected');
+});
+
+// Start server first, then try DB
+app.listen(PORT, () => {
+  console.log(`🚀 Fest Info server running at http://localhost:${PORT}`);
+  connectDB();
+});
