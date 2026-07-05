@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '..')));
 
 // Routes
 app.use('/api/events', require('./routes/events'));
@@ -27,7 +27,7 @@ app.get('/api/health', (req, res) => {
 
 // SPA fallback - serve index.html for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 // MongoDB connection (non-blocking - server starts regardless)
