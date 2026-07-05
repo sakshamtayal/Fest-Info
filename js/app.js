@@ -78,11 +78,16 @@ async function apiFetch(endpoint) {
 
 function showDbBanner(show) {
   const banner = $('db-banner');
-  banner.style.display = show ? 'block' : 'none';
-  // Adjust main padding
-  document.querySelector('.main').style.paddingTop = show
-    ? 'calc(var(--nav-h) + 44px + 40px)'
-    : 'calc(var(--nav-h) + 40px)';
+  if (banner) {
+    banner.style.display = show ? 'block' : 'none';
+  }
+  // Adjust main padding safely
+  const mainEl = document.querySelector('.main');
+  if (mainEl) {
+    mainEl.style.paddingTop = show
+      ? 'calc(var(--nav-h) + 44px + 40px)'
+      : 'calc(var(--nav-h) + 40px)';
+  }
 }
 
 // ════════════════════════
@@ -91,9 +96,10 @@ function showDbBanner(show) {
 async function loadEvents() {
   try {
     const result = await apiFetch('/api/events');
-    allEvents = result.data || [];
+    // Hybrid check: Handles both raw array responses and wrapped objects
+    allEvents = Array.isArray(result) ? result : (result.data || []);
     dataLoaded.events = true;
-    if (result.source === 'cache') showDbBanner(true);
+    if (result && result.source === 'cache') showDbBanner(true);
     renderEvents(allEvents);
   } catch (err) {
     renderEventsEmpty('Could not load events. Server may be down.');
@@ -102,6 +108,7 @@ async function loadEvents() {
 
 function renderEvents(events) {
   const grid = $('events-grid');
+  if (!grid) return;
   if (!events.length) {
     grid.innerHTML = emptyState('🎭', 'No events yet!', 'Be the first to add an event — mail us at <a href="mailto:saksham16711@gmail.com">saksham16711@gmail.com</a>');
     return;
@@ -110,7 +117,8 @@ function renderEvents(events) {
 }
 
 function renderEventsEmpty(msg) {
-  $('events-grid').innerHTML = emptyState('⚠️', 'Oops!', msg);
+  const grid = $('events-grid');
+  if (grid) grid.innerHTML = emptyState('⚠️', 'Oops!', msg);
 }
 
 function eventCard(ev, i) {
@@ -133,7 +141,9 @@ function eventCard(ev, i) {
 }
 
 function filterEvents() {
-  const q = $('search-events').value.toLowerCase();
+  const searchInput = $('search-events');
+  if (!searchInput) return;
+  const q = searchInput.value.toLowerCase();
   const filtered = allEvents.filter(ev =>
     ev.name.toLowerCase().includes(q) ||
     (ev.organisers || []).join(' ').toLowerCase().includes(q) ||
@@ -148,14 +158,16 @@ async function openEventModal(id) {
   if (!ev) {
     try {
       const r = await apiFetch(`/api/events/${id}`);
-      ev = r.data;
+      ev = r.data || r; // Hybrid check for single items
     } catch { return; }
   }
   if (!ev) return;
 
   const body = $('modal-body');
-  body.innerHTML = buildEventModal(ev);
-  openModal();
+  if (body) {
+    body.innerHTML = buildEventModal(ev);
+    openModal();
+  }
 }
 
 function buildEventModal(ev) {
@@ -237,17 +249,20 @@ function buildEventModal(ev) {
 async function loadSocieties() {
   try {
     const result = await apiFetch('/api/societies');
-    allSocieties = result.data || [];
+    // Hybrid check: Handles both raw array responses and wrapped objects
+    allSocieties = Array.isArray(result) ? result : (result.data || []);
     dataLoaded.societies = true;
-    if (result.source === 'cache') showDbBanner(true);
+    if (result && result.source === 'cache') showDbBanner(true);
     renderSocieties(allSocieties);
   } catch (err) {
-    $('societies-grid').innerHTML = emptyState('⚠️', 'Oops!', 'Could not load societies.');
+    const grid = $('societies-grid');
+    if (grid) grid.innerHTML = emptyState('⚠️', 'Oops!', 'Could not load societies.');
   }
 }
 
 function renderSocieties(societies) {
   const grid = $('societies-grid');
+  if (!grid) return;
   if (!societies.length) {
     grid.innerHTML = emptyState('🏛️', 'No societies yet!', 'Add yours — mail at <a href="mailto:saksham16711@gmail.com">saksham16711@gmail.com</a>');
     return;
@@ -278,7 +293,9 @@ function societyCard(s, i) {
 }
 
 function filterSocieties() {
-  const q = $('search-societies').value.toLowerCase();
+  const searchInput = $('search-societies');
+  if (!searchInput) return;
+  const q = searchInput.value.toLowerCase();
   let filtered = allSocieties.filter(s =>
     s.name.toLowerCase().includes(q) ||
     (s.category || '').toLowerCase().includes(q) ||
@@ -291,18 +308,24 @@ function filterSocieties() {
 function setSocietyFilter(filter, btn) {
   societyFilter = filter;
   document.querySelectorAll('#society-filters .chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   filterSocieties();
 }
 
 async function openSocietyModal(id) {
   let s = allSocieties.find(x => x._id === id);
   if (!s) {
-    try { const r = await apiFetch(`/api/societies/${id}`); s = r.data; } catch { return; }
+    try { 
+      const r = await apiFetch(`/api/societies/${id}`); 
+      s = r.data || r; // Hybrid check for single items
+    } catch { return; }
   }
   if (!s) return;
-  $('modal-body').innerHTML = buildSocietyModal(s);
-  openModal();
+  const body = $('modal-body');
+  if (body) {
+    body.innerHTML = buildSocietyModal(s);
+    openModal();
+  }
 }
 
 function buildSocietyModal(s) {
@@ -407,17 +430,20 @@ function buildSocietyModal(s) {
 async function loadCollegeEvents() {
   try {
     const result = await apiFetch('/api/college-events');
-    allCollegeEvents = result.data || [];
+    // Hybrid check: Handles both raw array responses and wrapped objects
+    allCollegeEvents = Array.isArray(result) ? result : (result.data || []);
     dataLoaded.college = true;
-    if (result.source === 'cache') showDbBanner(true);
+    if (result && result.source === 'cache') showDbBanner(true);
     renderCollegeEvents(allCollegeEvents);
   } catch (err) {
-    $('college-grid').innerHTML = emptyState('⚠️', 'Oops!', 'Could not load fests.');
+    const grid = $('college-grid');
+    if (grid) grid.innerHTML = emptyState('⚠️', 'Oops!', 'Could not load fests.');
   }
 }
 
 function renderCollegeEvents(events) {
   const grid = $('college-grid');
+  if (!grid) return;
   if (!events.length) {
     grid.innerHTML = emptyState('🎪', 'No fests listed yet!', 'Add yours — mail at <a href="mailto:saksham16711@gmail.com">saksham16711@gmail.com</a>');
     return;
@@ -452,7 +478,9 @@ function collegeCard(ev, i) {
 }
 
 function filterCollegeEvents() {
-  const q = $('search-college').value.toLowerCase();
+  const searchInput = $('search-college');
+  if (!searchInput) return;
+  const q = searchInput.value.toLowerCase();
   const filtered = allCollegeEvents.filter(ev =>
     ev.name.toLowerCase().includes(q) ||
     ev.college.toLowerCase().includes(q) ||
@@ -464,11 +492,17 @@ function filterCollegeEvents() {
 async function openCollegeModal(id) {
   let ev = allCollegeEvents.find(x => x._id === id);
   if (!ev) {
-    try { const r = await apiFetch(`/api/college-events/${id}`); ev = r.data; } catch { return; }
+    try { 
+      const r = await apiFetch(`/api/college-events/${id}`); 
+      ev = r.data || r; // Hybrid check for single items
+    } catch { return; }
   }
   if (!ev) return;
-  $('modal-body').innerHTML = buildCollegeModal(ev);
-  openModal();
+  const body = $('modal-body');
+  if (body) {
+    body.innerHTML = buildCollegeModal(ev);
+    openModal();
+  }
 }
 
 function buildCollegeModal(ev) {
@@ -607,7 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(async () => {
     try {
       const r = await apiFetch('/api/health');
-      if (r.db === 'connected') showDbBanner(false);
+      if (r && r.db === 'connected') showDbBanner(false);
       else showDbBanner(true);
     } catch { /* server might be down */ }
   }, 60000);
