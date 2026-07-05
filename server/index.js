@@ -8,7 +8,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://sakshamtayal.github.io',
+    'http://localhost:6774',
+    'http://localhost:3000'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..')));
 

@@ -59,8 +59,19 @@ function closeMobileMenu() {
 // ════════════════════════
 // API HELPERS
 // ════════════════════════
+
+// When served from GitHub Pages, point to the Render backend.
+// When served directly from Express (Render), use relative paths.
+const API_BASE = (() => {
+  const host = window.location.hostname;
+  if (host === 'sakshamtayal.github.io') {
+    return 'https://fest-info.onrender.com';
+  }
+  return ''; // relative — works when Express serves the frontend too
+})();
+
 async function apiFetch(endpoint) {
-  const res = await fetch(endpoint);
+  const res = await fetch(API_BASE + endpoint);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
