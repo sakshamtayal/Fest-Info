@@ -37,7 +37,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// MongoDB connection (Cleaned up to prevent the reconnection storm loop)
+// MongoDB connection (With detailed error reporting enabled)
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
@@ -47,13 +47,12 @@ const connectDB = async () => {
     });
     console.log('✅ MongoDB connected successfully');
   } catch (err) {
+    console.error('❌ MongoDB Connection Error Details:', err.message);
     console.warn('⚠️  MongoDB initial connection failed. Retrying in 30s...');
     setTimeout(connectDB, 30000);
   }
 };
 
-// Mongoose handles runtime auto-reconnections natively. 
-// Removed duplicate connectDB() call from here to stop the crash loops.
 mongoose.connection.on('disconnected', () => {
   console.warn('⚠️  MongoDB connection lost. Mongoose is auto-reconnecting...');
 });
