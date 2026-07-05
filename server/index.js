@@ -37,7 +37,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// MongoDB connection (non-blocking - server starts regardless)
+// MongoDB connection (Cleaned up to prevent the reconnection storm loop)
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
@@ -45,22 +45,21 @@ const connectDB = async () => {
       socketTimeoutMS: 45000,
       bufferCommands: false,
     });
-    console.log('✅ MongoDB connected');
+    console.log('✅ MongoDB connected successfully');
   } catch (err) {
-    console.warn('⚠️  MongoDB connection failed. Running in offline/cache mode.');
-    console.warn('   Data will be served from cache if available.');
-    // Retry connection every 30 seconds
+    console.warn('⚠️  MongoDB initial connection failed. Retrying in 30s...');
     setTimeout(connectDB, 30000);
   }
 };
 
+// Mongoose handles runtime auto-reconnections natively. 
+// Removed duplicate connectDB() call from here to stop the crash loops.
 mongoose.connection.on('disconnected', () => {
-  console.warn('⚠️  MongoDB disconnected. Retrying in 30s...');
-  setTimeout(connectDB, 30000);
+  console.warn('⚠️  MongoDB connection lost. Mongoose is auto-reconnecting...');
 });
 
 mongoose.connection.on('reconnected', () => {
-  console.log('✅ MongoDB reconnected');
+  console.log('✅ MongoDB reconnected successfully');
 });
 
 // Start server first, then try DB
