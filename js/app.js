@@ -632,10 +632,10 @@ function getLinkIcon(label = '') {
 }
 
 // ════════════════════════
-// INIT — Load Events on Start
+// INIT — Load Societies on Start
 // ════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
-  loadEvents();
+  loadSocieties();
 
   // Check DB health silently every 60s to update banner
   setInterval(async () => {
