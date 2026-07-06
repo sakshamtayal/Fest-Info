@@ -97,7 +97,8 @@ async function loadEvents() {
   try {
     const result = await apiFetch('/api/events');
     // Hybrid check: Handles both raw array responses and wrapped objects
-    allEvents = Array.isArray(result) ? result : (result.data || []);
+    allEvents = (Array.isArray(result) ? result : (result.data || []))
+      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
     dataLoaded.events = true;
     if (result && result.source === 'cache') showDbBanner(true);
     renderEvents(allEvents);
@@ -250,7 +251,8 @@ async function loadSocieties() {
   try {
     const result = await apiFetch('/api/societies');
     // Hybrid check: Handles both raw array responses and wrapped objects
-    allSocieties = Array.isArray(result) ? result : (result.data || []);
+    allSocieties = (Array.isArray(result) ? result : (result.data || []))
+      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
     dataLoaded.societies = true;
     if (result && result.source === 'cache') showDbBanner(true);
     renderSocieties(allSocieties);
