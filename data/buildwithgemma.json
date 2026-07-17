@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Build with Gemma — AIMS DTU Hackathon",
+    "college": "Delhi Technological University (DTU)",
+    "image": "https://buildwithgemma.aimsdtu.in/build-with-gemma-lockup.png",
+    "description": "The next generation of open models is here! Welcome to Build with Gemma — AIMS DTU, a fast-paced, 1-day in-person hackathon where you'll get hands-on with the most capable open models from Google DeepMind. Organised by AIMS DTU in collaboration with Google, this event challenges participants to build innovative AI-powered projects using the Gemma model family.",
+    "date": "July 2026",
+    "venue": "Delhi Technological University, Rohini, New Delhi",
+    "passPrice": "Free",
+    "passLink": "https://buildwithgemma.aimsdtu.in/",
+    "registrationProcess": "Visit the official website at buildwithgemma.aimsdtu.in and fill out the registration form before the deadline. Registration is free and open to all DTU students.",
+    "registrationDeadline": "12 July 2026",
+    "itinerary": [],
+    "performers": [],
+    "contacts": [],
+    "links": [
+      {
+        "label": "Official Website",
+        "url": "https://buildwithgemma.aimsdtu.in/"
+      },
+      {
+        "label": "Register Now",
+        "url": "https://buildwithgemma.aimsdtu.in/"
+      },
+      {
+        "label": "AIMS DTU Instagram",
+        "url": "https://www.instagram.com/aimsdtu/"
+      }
+    ],
+    "tags": ["Hackathon", "AI", "Machine Learning", "Google Gemma", "AIMS-DTU", "Tech", "DTU", "Free"],
+    "createdAt": { "$date": "2026-07-10T12:44:00.000Z" }
+  }
+]

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fest-info.onrender.com/sitemap.xml

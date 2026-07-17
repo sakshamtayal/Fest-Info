@@ -3,8 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fest Info — College Events & Societies Hub</title>
-  <meta name="description" content="Your one-stop hub for college events, societies, and Delhi NCR fest passes. Stay updated on all campus happenings." />
+  <title>Fest Info | DTU Fests, Societies & Delhi NCR College Fests</title>
+  <meta name="description" content="Discover and register for DTU fests, DTU societies, student clubs, and upcoming college events in Delhi NCR. Get event passes, schedules, and recruitment updates." />
+  <meta name="keywords" content="fest dtu, dtu society, delhi fest, dtu fests, dtu clubs, college fests delhi, dtu recruitments, Delhi NCR fests, college event passes, fest info, Delhi Technological University fests" />
+  <link rel="canonical" href="https://fest-info.onrender.com/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fest-info.onrender.com/" />
+  <meta property="og:title" content="Fest Info | DTU Fests, Societies & Delhi NCR College Fests" />
+  <meta property="og:description" content="Discover and register for DTU fests, DTU societies, student clubs, and upcoming college events in Delhi NCR. Get event passes, schedules, and recruitment updates." />
+  <meta property="og:image" content="https://fest-info.onrender.com/images/og-image.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://fest-info.onrender.com/" />
+  <meta property="twitter:title" content="Fest Info | DTU Fests, Societies & Delhi NCR College Fests" />
+  <meta property="twitter:description" content="Discover and register for DTU fests, DTU societies, student clubs, and upcoming college events in Delhi NCR. Get event passes, schedules, and recruitment updates." />
+  <meta property="twitter:image" content="https://fest-info.onrender.com/images/og-image.png" />
+
+  <!-- JSON-LD Structured Data for Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Fest Info",
+    "url": "https://fest-info.onrender.com/",
+    "description": "Your ultimate guide to DTU Fests, DTU Societies, and Delhi NCR college events and passes.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://fest-info.onrender.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -50,8 +82,8 @@
     <!-- ────────── EVENTS PAGE ────────── -->
     <section class="page" id="page-events">
       <div class="page-header">
-        <h1>🎭 Campus Events</h1>
-        <p>Discover exciting events happening around your campus</p>
+        <h1>🎭 DTU Events & Campus Fests</h1>
+        <p>Discover exciting cultural events, tech fests, and workshops happening around DTU (Delhi Technological University) campus.</p>
       </div>
       <div class="search-bar-wrap">
         <input type="text" class="search-bar" id="search-events" placeholder="🔍 Search events..." oninput="filterEvents()" />
@@ -67,8 +99,8 @@
     <!-- ────────── SOCIETIES PAGE ────────── -->
     <section class="page active" id="page-societies">
       <div class="page-header">
-        <h1>🏛️ Societies</h1>
-        <p>Explore clubs, cells, and societies at your college</p>
+        <h1>🏛️ DTU Societies & Clubs</h1>
+        <p>Explore cultural societies, technical departments, and student clubs at DTU. Check active recruitments, auditions, and forms.</p>
       </div>
       <div class="search-bar-wrap">
         <input type="text" class="search-bar" id="search-societies" placeholder="🔍 Search societies..." oninput="filterSocieties()" />
@@ -88,8 +120,8 @@
     <!-- ────────── DELHI NCR FESTS PAGE ────────── -->
     <section class="page" id="page-college">
       <div class="page-header">
-        <h1>🎪 Delhi NCR Fests & Passes</h1>
-        <p>Upcoming college fests, event passes and registration details</p>
+        <h1>🎪 Delhi NCR Fests & Event Passes</h1>
+        <p>Browse upcoming college fests in Delhi, NCR, get entry passes, ticket links, and complete registration details.</p>
       </div>
       <div class="search-bar-wrap">
         <input type="text" class="search-bar" id="search-college" placeholder="🔍 Search fests..." oninput="filterCollegeEvents()" />
@@ -103,6 +135,41 @@
     </section>
 
   </main>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">Fest Info</span>
+        <p class="footer-tagline">Your ultimate portal for DTU fests, DTU societies, student clubs, and Delhi NCR college events & passes.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Navigate</h4>
+        <a href="#" onclick="showPage('events')">🎭 DTU Events</a>
+        <a href="#" onclick="showPage('societies')">🏛️ DTU Societies</a>
+        <a href="#" onclick="showPage('college')">🎪 Delhi NCR Fests</a>
+      </div>
+      <div class="footer-column">
+        <h4>Popular Search Tags</h4>
+        <div class="seo-tags-wrap">
+          <span class="seo-tag">#fest dtu</span>
+          <span class="seo-tag">#dtu society</span>
+          <span class="seo-tag">#delhi fest</span>
+          <span class="seo-tag">#dtu cultural fests</span>
+          <span class="seo-tag">#delhi ncr college passes</span>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h4>Contact & Support</h4>
+        <p>Want to list your society, departmental club, or college fest?</p>
+        <a href="mailto:saksham16711@gmail.com" class="footer-email">✉️ saksham16711@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Fest Info by Saksham Tayal. All rights reserved.</p>
+      <p>Created for DTU students and college enthusiasts across Delhi NCR.</p>
+    </div>
+  </footer>
 
   <!-- ═══════════════════════ MODAL / DETAIL DRAWER ═══════════════════════ -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
