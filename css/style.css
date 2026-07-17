@@ -5,13 +5,13 @@
 
 /* ── Design Tokens ── */
 :root {
-  --bg: #0a0a0f;
-  --bg2: #111118;
-  --bg3: #18181f;
-  --card: #16161e;
-  --card-hover: #1e1e2a;
-  --border: rgba(255,255,255,0.07);
-  --border-glow: rgba(139,92,246,0.3);
+  --bg: #030305;
+  --bg2: rgba(11, 11, 16, 0.8);
+  --bg3: rgba(24, 24, 35, 0.55);
+  --card: rgba(18, 18, 26, 0.45);
+  --card-hover: rgba(28, 28, 40, 0.65);
+  --border: rgba(255,255,255,0.06);
+  --border-glow: rgba(139,92,246,0.25);
 
   --purple: #8b5cf6;
   --purple-light: #a78bfa;
@@ -48,7 +48,16 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.16) 0%, transparent 60%),
+    radial-gradient(circle at 10% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.06) 0%, transparent 45%),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+  background-position: 0 0, 0 0, 0 0, center, center;
+  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
@@ -58,28 +67,6 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 99px; }
-
-/* ══════════════════════
-   BACKGROUND AMBIANCE
-   ══════════════════════ */
-body::before {
-  content: '';
-  position: fixed;
-  top: -200px; left: -200px;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-body::after {
-  content: '';
-  position: fixed;
-  bottom: -200px; right: -200px;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ══════════════════════
    NAVBAR
@@ -269,6 +256,8 @@ body::after {
   font-size: 0.95rem;
   outline: none;
   transition: var(--transition);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .search-bar:focus {
   border-color: var(--purple);
@@ -313,6 +302,8 @@ body::after {
   cursor: pointer;
   transition: var(--transition);
   position: relative;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .event-card:hover {
   transform: translateY(-6px);
@@ -396,6 +387,8 @@ body::after {
   flex-direction: column;
   gap: 14px;
   position: relative;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .society-card:hover {
   transform: translateY(-6px);
@@ -463,6 +456,8 @@ body::after {
   cursor: pointer;
   transition: var(--transition);
   position: relative;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .college-card:hover {
   transform: translateY(-6px);
@@ -578,6 +573,8 @@ body::after {
   display: flex;
   flex-direction: column;
   box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 .modal.open {
   opacity: 1;
