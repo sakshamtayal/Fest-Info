@@ -39,7 +39,7 @@
   top: 50%;
   left: 50%;
   /* Rotate portrait video 90deg clockwise to landscape */
-  transform: translate(-50%, -50%) rotate(-90deg) scale(1.8);
+  transform: translate(-50%, -50%) rotate(-90deg) scale(1.2);
   /* After rotation, the video's original height becomes the width */
   width: 56.25vh;  /* 9:16 → the height in vh becomes the rotated width */
   height: 100vh;
