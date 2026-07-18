@@ -33,12 +33,16 @@
   z-index: 2;
 }
 
-/* The video — simple full-cover, no rotation hacks */
+/* The video — rotated -90deg to convert portrait→landscape */
+/* After -90deg rotation: visual width = element height, visual height = element width */
+/* So swap viewport units: width=100vh covers visual height, height=100vw covers visual width */
 .events-bg-video {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 100vh;
+  height: 100vw;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(1.05);
   object-fit: cover;
   object-position: center center;
   opacity: 0.28;
@@ -155,9 +159,11 @@
 
 .college-bg-video {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 100vh;
+  height: 100vw;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(1.05);
   object-fit: cover;
   object-position: center center;
   opacity: 0.28;
