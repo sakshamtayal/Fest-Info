@@ -77,6 +77,61 @@
   }
 }
 
+/* ── Sound Toggle Button ── */
+.video-sound-btn {
+  display: none; /* shown only on desktop via media query below */
+  position: absolute;
+  bottom: 24px;
+  right: 28px;
+  z-index: 3;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(10, 6, 2, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245,130,20,0.3);
+  border-radius: 99px;
+  cursor: pointer;
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  animation: soundPulse 3s ease-in-out infinite;
+}
+
+.video-sound-btn:hover {
+  background: rgba(245,130,20,0.2);
+  border-color: rgba(245,130,20,0.6);
+  transform: scale(1.05);
+  animation: none;
+  box-shadow: 0 4px 24px rgba(245,130,20,0.25);
+}
+
+.video-sound-btn.unmuted {
+  background: rgba(245,130,20,0.15);
+  border-color: rgba(245,130,20,0.5);
+  box-shadow: 0 0 20px rgba(245,130,20,0.2);
+  animation: none;
+}
+
+.sound-icon { font-size: 1.1rem; line-height: 1; }
+.sound-label { font-size: 0.78rem; color: rgba(255,255,255,0.8); }
+
+@keyframes soundPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 0 rgba(245,130,20,0.3); }
+  50%       { box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 8px rgba(245,130,20,0); }
+}
+
+@media (min-width: 900px) {
+  .video-sound-btn {
+    display: flex;
+  }
+}
+
 
 /* ── Design Tokens ── */
 :root {
