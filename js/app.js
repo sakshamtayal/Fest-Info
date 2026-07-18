@@ -638,6 +638,8 @@ function getLinkIcon(label = '') {
 // ════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   loadSocieties();
+  initConfetti();
+  initFloatingParticles();
 
   // Check DB health silently every 60s to update banner
   setInterval(async () => {
@@ -648,3 +650,152 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch { /* server might be down */ }
   }, 60000);
 });
+
+// ════════════════════════
+// CONFETTI CANVAS ANIMATION
+// ════════════════════════
+function initConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Festive color palette
+  const colors = [
+    '#7c3aed', '#d946ef', '#f43f5e', '#22d3ee',
+    '#f59e0b', '#10b981', '#a78bfa', '#f97316',
+    '#c084fc', '#fbbf24', '#34d399'
+  ];
+
+  const PARTICLE_COUNT = 55;
+  const particles = [];
+
+  class ConfettiParticle {
+    constructor() { this.reset(true); }
+
+    reset(initial = false) {
+      this.x = Math.random() * canvas.width;
+      this.y = initial ? Math.random() * canvas.height : canvas.height + 20;
+      this.size = Math.random() * 5 + 2;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.speedY = -(Math.random() * 0.8 + 0.3);
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.opacity = Math.random() * 0.5 + 0.15;
+      this.rotation = Math.random() * 360;
+      this.rotationSpeed = (Math.random() - 0.5) * 1.5;
+      this.shape = Math.random() < 0.6 ? 'rect' : 'circle';
+      this.wobble = Math.random() * Math.PI * 2;
+      this.wobbleSpeed = Math.random() * 0.04 + 0.01;
+    }
+
+    update() {
+      this.y += this.speedY;
+      this.x += this.speedX + Math.sin(this.wobble) * 0.3;
+      this.wobble += this.wobbleSpeed;
+      this.rotation += this.rotationSpeed;
+      if (this.y < -20) this.reset(false);
+    }
+
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.translate(this.x, this.y);
+      ctx.rotate((this.rotation * Math.PI) / 180);
+      if (this.shape === 'rect') {
+        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.5);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new ConfettiParticle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ════════════════════════
+// FLOATING AMBIENT PARTICLES
+// ════════════════════════
+function initFloatingParticles() {
+  const particleColors = ['#7c3aed', '#d946ef', '#22d3ee', '#f59e0b', '#f43f5e'];
+  const count = 18;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'particle';
+
+    const size = Math.random() * 4 + 2;
+    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+    const duration = Math.random() * 20 + 15;
+    const delay = Math.random() * -20;
+    const left = Math.random() * 100;
+
+    el.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${left}%;
+      background: ${color};
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      box-shadow: 0 0 ${size * 2}px ${color};
+    `;
+    document.body.appendChild(el);
+  }
+}
+
+// ════════════════════════
+// NAVBAR SCROLL EFFECT
+// ════════════════════════
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('navbar');
+  if (!navbar) return;
+  if (window.scrollY > 20) {
+    navbar.style.background = 'rgba(7,5,15,0.95)';
+    navbar.style.boxShadow = '0 4px 30px rgba(124,58,237,0.1)';
+  } else {
+    navbar.style.background = 'rgba(7,5,15,0.82)';
+    navbar.style.boxShadow = 'none';
+  }
+}, { passive: true });
+
+// ════════════════════════
+// CARD HOVER TILT EFFECT
+// ════════════════════════
+document.addEventListener('mousemove', (e) => {
+  const cards = document.querySelectorAll('.event-card, .society-card, .college-card');
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / rect.width;
+    const dy = (e.clientY - cy) / rect.height;
+    // Only tilt if hovering near the card
+    if (Math.abs(dx) < 0.7 && Math.abs(dy) < 0.7 && card.matches(':hover')) {
+      card.style.transform = `translateY(-8px) scale(1.01) rotateX(${-dy * 4}deg) rotateY(${dx * 4}deg)`;
+    }
+  });
+}, { passive: true });
+
+document.addEventListener('mouseleave', () => {
+  document.querySelectorAll('.event-card, .society-card, .college-card').forEach(card => {
+    card.style.transform = '';
+  });
+}, true);
