@@ -33,6 +33,16 @@ function showPage(page) {
   if (page === 'societies' && !dataLoaded.societies) loadSocieties();
   if (page === 'college' && !dataLoaded.college) loadCollegeEvents();
 
+  // Play/pause background video based on active page
+  const bgVideo = $('events-bg-video');
+  if (bgVideo) {
+    if (page === 'events') {
+      bgVideo.play().catch(() => {}); // autoplay may need user gesture on some browsers
+    } else {
+      bgVideo.pause();
+    }
+  }
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

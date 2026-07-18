@@ -1,9 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+
 /* ══════════════════════════════════════════════
    FEST INFO — Redesigned by Antigravity
    Premium Theme: Vibrant Fest Vibes 🎉
    ══════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap');
+/* ══════════════════════════════════════════
+   EVENTS VIDEO BACKGROUND (Desktop Only)
+   ══════════════════════════════════════════ */
+
+/* The wrapper sits inside #page-events, behind all content */
+.events-video-bg {
+  display: none; /* hidden on mobile by default */
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* The <section> needs relative positioning to contain it */
+#page-events {
+  position: relative;
+}
+
+/* Ensure content sits above the video */
+#page-events .page-header,
+#page-events .search-bar-wrap,
+#page-events .cards-grid {
+  position: relative;
+  z-index: 2;
+}
+
+/* The video — rotate 90deg (portrait → landscape), scale to fill */
+.events-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Rotate portrait video 90deg clockwise to landscape */
+  transform: translate(-50%, -50%) rotate(90deg) scale(1.8);
+  /* After rotation, the video's original height becomes the width */
+  width: 56.25vh;  /* 9:16 → the height in vh becomes the rotated width */
+  height: 100vh;
+  min-width: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+  filter: saturate(1.4) brightness(0.85);
+  transition: opacity 1s ease;
+}
+
+/* Dark overlay: gradient that fades video at top/bottom so content pops */
+.events-video-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(7,5,15,0.65) 0%,
+      rgba(7,5,15,0.25) 30%,
+      rgba(7,5,15,0.25) 70%,
+      rgba(7,5,15,0.75) 100%
+    ),
+    /* Subtle purple tint to match theme */
+    linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(217,70,239,0.08) 100%);
+  z-index: 1;
+}
+
+/* Show only on desktop */
+@media (min-width: 900px) {
+  .events-video-bg {
+    display: block;
+  }
+}
+
 
 /* ── Design Tokens ── */
 :root {
