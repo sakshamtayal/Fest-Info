@@ -206,9 +206,14 @@ async function openEventModal(id) {
 }
 
 function buildEventModal(ev) {
-  const imgHtml = ev.image
-    ? `<img class="modal-hero" src="${ev.image}" alt="${ev.name}" onerror="this.outerHTML='<div class=modal-hero-placeholder>🎭</div>'">`
-    : `<div class="modal-hero-placeholder">🎭</div>`;
+  // Show video if available, otherwise fall back to image
+  const mediaHtml = ev.video
+    ? `<div class="modal-video-wrap">
+        <video class="modal-video" src="${ev.video}" controls autoplay muted loop playsinline></video>
+       </div>`
+    : ev.image
+      ? `<img class="modal-hero" src="${ev.image}" alt="${ev.name}" onerror="this.outerHTML='<div class=modal-hero-placeholder>🎭</div>'">`
+      : `<div class="modal-hero-placeholder">🎭</div>`;
 
   const organisers = (ev.organisers || []).length
     ? `<div class="modal-section">
@@ -267,7 +272,7 @@ function buildEventModal(ev) {
        </div>` : '';
 
   return `
-    ${imgHtml}
+    ${mediaHtml}
     <div class="modal-title">${ev.name}</div>
     ${infoBadges ? `<div class="info-badges">${infoBadges}</div>` : ''}
     ${desc}

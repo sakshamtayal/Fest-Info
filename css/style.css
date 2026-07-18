@@ -1155,7 +1155,7 @@ body::after {
   flex: 1;
 }
 
-/* Modal Content Pieces */
+/* Modal hero image */
 .modal-hero {
   width: 100%;
   height: 230px;
@@ -1164,6 +1164,25 @@ body::after {
   margin-bottom: 26px;
   display: block;
   box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* Modal video — full-width 16:9 player */
+.modal-video-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 26px;
+  background: #000;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.modal-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 16px;
 }
 .modal-hero-placeholder {
   width: 100%;

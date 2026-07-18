@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
   date: { type: String, default: '' },
   time: { type: String, default: '' },
   venue: { type: String, default: '' },
+  video: { type: String, default: '' },
   links: [{ label: String, url: String }],
   timeline: [{ date: String, event: String }],
   contacts: [{ name: String, phone: String, whatsapp: String }],
