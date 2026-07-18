@@ -295,6 +295,13 @@ async function loadSocieties() {
     dataLoaded.societies = true;
     if (result && result.source === 'cache') showDbBanner(true);
     renderSocieties(allSocieties);
+
+    // Dynamic home page badge if societies are recruiting
+    const anyRecruiting = allSocieties.some(s => s.isRecruiting);
+    const ind = $('recruiting-indicator');
+    if (ind && anyRecruiting) {
+      ind.style.display = 'block';
+    }
   } catch (err) {
     const grid = $('societies-grid');
     if (grid) grid.innerHTML = emptyState('⚠️', 'Oops!', 'Could not load societies.');
@@ -891,10 +898,10 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ════════════════════════
-// CARD HOVER TILT EFFECT
+// CARD HOVER TILT & GLOW EFFECT
 // ════════════════════════
 document.addEventListener('mousemove', (e) => {
-  const cards = document.querySelectorAll('.event-card, .society-card, .college-card');
+  const cards = document.querySelectorAll('.event-card, .society-card, .college-card, .home-card');
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
@@ -904,12 +911,18 @@ document.addEventListener('mousemove', (e) => {
     // Only tilt if hovering near the card
     if (Math.abs(dx) < 0.7 && Math.abs(dy) < 0.7 && card.matches(':hover')) {
       card.style.transform = `translateY(-8px) scale(1.01) rotateX(${-dy * 4}deg) rotateY(${dx * 4}deg)`;
+      
+      // Calculate cursor position relative to the card for spotlight gradient
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
     }
   });
 }, { passive: true });
 
 document.addEventListener('mouseleave', () => {
-  document.querySelectorAll('.event-card, .society-card, .college-card').forEach(card => {
+  document.querySelectorAll('.event-card, .society-card, .college-card, .home-card').forEach(card => {
     card.style.transform = '';
   });
 }, true);

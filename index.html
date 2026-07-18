@@ -50,7 +50,7 @@
   <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
   <nav class="navbar" id="navbar">
     <div class="nav-left">
-      <div class="brand">
+      <div class="brand" onclick="showPage('home')" style="cursor: pointer;">
         <span class="brand-name">Fest Info</span>
         <span class="brand-sub">by <span class="brand-sub-name">Saksham Tayal</span></span>
       </div>
@@ -61,8 +61,9 @@
     </button>
 
     <div class="nav-center" id="nav-menu">
+      <a href="#" class="nav-link active" id="nav-home" onclick="showPage('home')">🏠 Home</a>
       <a href="#" class="nav-link" id="nav-events" onclick="showPage('events')">🎭 DTU Events</a>
-      <a href="#" class="nav-link active" id="nav-societies" onclick="showPage('societies')">🏛️ Societies</a>
+      <a href="#" class="nav-link" id="nav-societies" onclick="showPage('societies')">🏛️ Societies</a>
       <a href="#" class="nav-link" id="nav-college" onclick="showPage('college')">🎪 Delhi NCR Fests</a>
     </div>
 
@@ -81,6 +82,45 @@
 
   <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
   <main class="main" id="main-content">
+
+    <!-- ────────── HOME PAGE ────────── -->
+    <section class="page active" id="page-home">
+      <div class="page-header section-title-anim">
+        <div class="section-badge">⚡ DTU & Delhi NCR Hub</div>
+        <h1 style="background: var(--grad-fest); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">All College Info, <br>In One Single Place</h1>
+        <p>Discover exciting cultural events, active society recruitments, and upcoming college fests around Delhi NCR.</p>
+      </div>
+
+      <div class="home-grid">
+        <!-- Card 1: DTU Events -->
+        <div class="home-card card-events" onclick="showPage('events')">
+          <div class="home-card-glow"></div>
+          <div class="home-card-icon">🎭</div>
+          <h3>DTU Events</h3>
+          <p>Explore cultural nights, technical hackathons, workshops, and campus activities at Delhi Technological University.</p>
+          <div class="home-card-cta">Explore Events ➔</div>
+        </div>
+
+        <!-- Card 2: Societies -->
+        <div class="home-card card-societies" onclick="showPage('societies')">
+          <div class="home-card-glow"></div>
+          <div class="home-card-icon">🏛️</div>
+          <h3>DTU Societies</h3>
+          <p>Auditions, recruitments, student clubs, and department societies. Check current recruitment status and active forms.</p>
+          <div class="home-card-badge" id="recruiting-indicator" style="display:none;">🟢 Recruiting Now</div>
+          <div class="home-card-cta">View Societies ➔</div>
+        </div>
+
+        <!-- Card 3: Delhi NCR Fests -->
+        <div class="home-card card-college" onclick="showPage('college')">
+          <div class="home-card-glow"></div>
+          <div class="home-card-icon">🎪</div>
+          <h3>Delhi NCR Fests</h3>
+          <p>Upcoming college fests, star singer lineups, entry pass registration links, and schedules across Delhi, Noida, Gurgaon.</p>
+          <div class="home-card-cta">Get Passes ➔</div>
+        </div>
+      </div>
+    </section>
 
     <!-- ────────── EVENTS PAGE ────────── -->
     <section class="page" id="page-events">
@@ -116,7 +156,7 @@
     </section>
 
     <!-- ────────── SOCIETIES PAGE ────────── -->
-    <section class="page active" id="page-societies">
+    <section class="page" id="page-societies">
       <div class="page-header section-title-anim">
         <div class="section-badge">🏛️ Student Communities</div>
         <h1>DTU Societies &amp; Clubs</h1>

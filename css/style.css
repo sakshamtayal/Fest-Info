@@ -42,7 +42,7 @@
   left: 50%;
   width: 100vh;
   height: 100vw;
-  transform: translate(-50%, -50%) rotate(-90deg) scale(1.05);
+  transform: translate(-50%, -50%) rotate(-90deg) scale(1.18);
   object-fit: cover;
   object-position: center center;
   opacity: 0.28;
@@ -163,7 +163,7 @@
   left: 50%;
   width: 100vh;
   height: 100vw;
-  transform: translate(-50%, -50%) rotate(-90deg) scale(1.05);
+  transform: translate(-50%, -50%) rotate(-90deg) scale(1.18);
   object-fit: cover;
   object-position: center center;
   opacity: 0.28;
@@ -1448,31 +1448,51 @@ body::after {
    RESPONSIVE
    ══════════════════════ */
 @media (max-width: 900px) {
-  .nav-center, .nav-right { display: none; }
-  .hamburger { display: flex; }
-  .navbar { padding: 0 20px; }
-
-  .nav-center.open {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    position: fixed;
-    top: var(--nav-h); left: 0; right: 0;
-    background: rgba(255,255,255,0.98);
-    backdrop-filter: blur(28px);
-    border-bottom: 1px solid rgba(124,58,237,0.15);
-    padding: 18px 20px 22px;
-    gap: 6px;
-    z-index: 999;
-    animation: slideDown 0.25s ease;
+  :root { --nav-h: 116px; }
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    padding: 12px 20px 8px;
+    height: var(--nav-h);
+    gap: 10px;
   }
-  .nav-right.open {
-    display: flex;
-    position: fixed;
-    top: calc(var(--nav-h) + 210px); left: 20px; right: 20px;
-    z-index: 999;
-    justify-content: center;
+  .nav-left {
+    grid-column: 1;
+    grid-row: 1;
   }
+  .nav-right {
+    display: flex !important;
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+  }
+  .nav-center {
+    display: flex !important;
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+    padding: 2px 0 6px;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-center::-webkit-scrollbar { display: none; }
+  .nav-link {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+  .list-cta {
+    padding: 8px 16px;
+    font-size: 0.72rem;
+    box-shadow: none;
+  }
+  .hamburger { display: none !important; }
 
   .page { padding: 0 18px 60px; }
   .modal-body { padding: 24px 20px; }
@@ -1480,7 +1500,7 @@ body::after {
 }
 
 @media (max-width: 600px) {
-  :root { --nav-h: 62px; }
+  :root { --nav-h: 108px; }
   .brand-name { font-size: 1.15rem; }
   .page-header h1 { font-size: 1.9rem; }
   .page { padding: 0 14px 60px; }
@@ -1680,4 +1700,223 @@ body::after {
 /* Glow text effect on headings */
 .glow-text {
   text-shadow: 0 0 40px rgba(124,58,237,0.4);
+}
+
+/* ══════════════════════
+   HOME PAGE
+   ══════════════════════ */
+#page-home {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+  animation: fadeUp 0.6s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.home-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(31, 23, 70, 0.04);
+}
+
+.home-card-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Event Card Glow */
+.home-card.card-events .home-card-glow {
+  background: radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(217, 70, 239, 0.15), transparent 80%);
+}
+/* Societies Card Glow */
+.home-card.card-societies .home-card-glow {
+  background: radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(2, 132, 199, 0.15), transparent 80%);
+}
+/* Delhi NCR Card Glow */
+.home-card.card-college .home-card-glow {
+  background: radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(234, 88, 12, 0.15), transparent 80%);
+}
+
+.home-card:hover .home-card-glow {
+  opacity: 1;
+}
+
+.home-card-icon {
+  font-size: 3rem;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 24px rgba(31, 23, 70, 0.06);
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.home-card:hover .home-card-icon {
+  transform: scale(1.1) rotate(6deg);
+}
+
+.home-card h3 {
+  font-family: var(--font-main);
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  z-index: 1;
+  color: var(--text);
+}
+
+.home-card.card-events h3 {
+  background: var(--grad-fest);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-card.card-societies h3 {
+  background: var(--grad-society);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-card.card-college h3 {
+  background: var(--grad-delhi);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-card p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.home-card-cta {
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 99px;
+  z-index: 1;
+  transition: var(--transition);
+}
+
+.home-card.card-events .home-card-cta {
+  background: rgba(217, 70, 239, 0.08);
+  color: var(--fuchsia);
+  border: 1px solid rgba(217, 70, 239, 0.15);
+}
+
+.home-card.card-societies .home-card-cta {
+  background: rgba(2, 132, 199, 0.08);
+  color: var(--cyan);
+  border: 1px solid rgba(2, 132, 199, 0.15);
+}
+
+.home-card.card-college .home-card-cta {
+  background: rgba(234, 88, 12, 0.08);
+  color: var(--orange);
+  border: 1px solid rgba(234, 88, 12, 0.15);
+}
+
+.home-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px rgba(31, 23, 70, 0.12);
+}
+
+.home-card.card-events:hover {
+  border-color: rgba(217, 70, 239, 0.35);
+  box-shadow: 0 20px 40px rgba(217, 70, 239, 0.08);
+}
+.home-card.card-events:hover .home-card-cta {
+  background: var(--grad-fest);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(217, 70, 239, 0.25);
+}
+
+.home-card.card-societies:hover {
+  border-color: rgba(2, 132, 199, 0.35);
+  box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08);
+}
+.home-card.card-societies:hover .home-card-cta {
+  background: var(--grad-society);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
+
+.home-card.card-college:hover {
+  border-color: rgba(234, 88, 12, 0.35);
+  box-shadow: 0 20px 40px rgba(234, 88, 12, 0.08);
+}
+.home-card.card-college:hover .home-card-cta {
+  background: var(--grad-delhi);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+}
+
+.home-card-badge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--green);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  animation: pulseBadge 2s infinite;
+  z-index: 2;
+}
+
+@keyframes pulseBadge {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .home-card {
+    padding: 30px 24px;
+  }
 }
