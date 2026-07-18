@@ -690,7 +690,7 @@ function toggleEventsBgSound() {
       if (vol >= 0.35) clearInterval(fadeIn);
     }, 60);
     icon.textContent  = '🔊';
-    label.textContent = 'Playing';
+    label.textContent = 'Tap to mute sound';
     btn.classList.add('unmuted');
   } else {
     // Mute — fade volume out smoothly

@@ -81,9 +81,10 @@
 .video-sound-btn {
   display: none; /* shown only on desktop via media query below */
   position: absolute;
-  bottom: 24px;
-  right: 28px;
+  top: 24px;
+  right: 24px;
   z-index: 3;
+  pointer-events: auto; /* override parent's pointer-events: none */
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
