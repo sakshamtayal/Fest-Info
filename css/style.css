@@ -83,8 +83,7 @@
   position: absolute;
   top: 24px;
   right: 24px;
-  z-index: 3;
-  pointer-events: auto; /* override parent's pointer-events: none */
+  z-index: 10; /* direct child of #page-events — always on top */
   align-items: center;
   gap: 8px;
   padding: 10px 18px;

@@ -91,12 +91,13 @@
           <source src="assets/videos/engifest-oat.mp4" type="video/mp4">
         </video>
         <div class="events-video-overlay"></div>
-        <!-- Sound toggle button -->
-        <button class="video-sound-btn" id="video-sound-btn" onclick="toggleEventsBgSound()" title="Toggle sound">
-          <span class="sound-icon" id="sound-icon">🔇</span>
-          <span class="sound-label" id="sound-label">Tap for sound</span>
-        </button>
       </div>
+
+      <!-- Sound toggle button (outside video-bg for correct z-index) -->
+      <button class="video-sound-btn" id="video-sound-btn" onclick="toggleEventsBgSound()" title="Toggle sound">
+        <span class="sound-icon" id="sound-icon">🔇</span>
+        <span class="sound-label" id="sound-label">Tap for sound</span>
+      </button>
 
       <div class="page-header section-title-anim">
         <div class="section-badge">✨ Campus Life</div>
