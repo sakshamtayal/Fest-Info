@@ -139,6 +139,21 @@
 
     <!-- ────────── DELHI NCR FESTS PAGE ────────── -->
     <section class="page" id="page-college">
+
+      <!-- Video Background (desktop only) -->
+      <div class="college-video-bg" id="college-video-bg">
+        <video autoplay muted loop playsinline class="college-bg-video" id="college-bg-video">
+          <source src="assets/videos/engi26-day3.mp4" type="video/mp4">
+        </video>
+        <div class="college-video-overlay"></div>
+      </div>
+
+      <!-- Sound toggle button -->
+      <button class="college-sound-btn" id="college-sound-btn" onclick="toggleCollegeBgSound()" title="Toggle sound">
+        <span class="sound-icon" id="college-sound-icon">🔇</span>
+        <span class="sound-label" id="college-sound-label">Tap for sound</span>
+      </button>
+
       <div class="page-header section-title-anim">
         <div class="section-badge">🎪 Delhi NCR Scene</div>
         <h1>Delhi NCR Fests &amp; Event Passes</h1>
