@@ -85,6 +85,21 @@
 
     <!-- ────────── HOME PAGE ────────── -->
     <section class="page active" id="page-home">
+
+      <!-- Video Background (desktop only) -->
+      <div class="home-video-bg" id="home-video-bg">
+        <video autoplay muted loop playsinline class="home-bg-video" id="home-bg-video">
+          <source src="assets/videos/homepage-bg.mp4" type="video/mp4">
+        </video>
+        <div class="home-video-overlay"></div>
+      </div>
+
+      <!-- Sound toggle button -->
+      <button class="home-sound-btn" id="home-sound-btn" onclick="toggleHomeBgSound()" title="Toggle sound">
+        <span class="sound-icon" id="home-sound-icon">🔇</span>
+        <span class="sound-label" id="home-sound-label">Tap for sound</span>
+      </button>
+
       <div class="page-header section-title-anim">
         <div class="section-badge">⚡ DTU & Delhi NCR Hub</div>
         <h1 style="background: var(--grad-fest); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">All College Info, <br>In One Single Place</h1>

@@ -33,6 +33,23 @@ function showPage(page) {
   if (page === 'societies' && !dataLoaded.societies) loadSocieties();
   if (page === 'college' && !dataLoaded.college) loadCollegeEvents();
 
+  // Play/pause Home background video
+  const homeVideo = $('home-bg-video');
+  if (homeVideo) {
+    if (page === 'home') {
+      homeVideo.play().catch(() => {});
+    } else {
+      homeVideo.pause();
+      homeVideo.muted = true;
+      const icon  = $('home-sound-icon');
+      const label = $('home-sound-label');
+      const btn   = $('home-sound-btn');
+      if (icon)  icon.textContent  = '🔇';
+      if (label) label.textContent = 'Tap for sound';
+      if (btn)   btn.classList.remove('unmuted');
+    }
+  }
+
   // Play/pause background video based on active page
   const bgVideo = $('events-bg-video');
   if (bgVideo) {
@@ -683,6 +700,7 @@ function getLinkIcon(label = '') {
 // INIT — Load Societies on Start
 // ════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  showPage('home');
   loadSocieties();
   initConfetti();
   initFloatingParticles();
@@ -696,6 +714,41 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch { /* server might be down */ }
   }, 60000);
 });
+
+// ════════════════════════
+// HOME BG SOUND TOGGLE
+// ════════════════════════
+function toggleHomeBgSound() {
+  const video = $('home-bg-video');
+  const btn   = $('home-sound-btn');
+  const icon  = $('home-sound-icon');
+  const label = $('home-sound-label');
+  if (!video || !btn) return;
+
+  if (video.muted) {
+    video.muted = false;
+    video.volume = 0;
+    let vol = 0;
+    const fadeIn = setInterval(() => {
+      vol = Math.min(vol + 0.05, 0.35);
+      video.volume = vol;
+      if (vol >= 0.35) clearInterval(fadeIn);
+    }, 60);
+    icon.textContent  = '🔊';
+    label.textContent = 'Tap to mute sound';
+    btn.classList.add('unmuted');
+  } else {
+    let vol = video.volume;
+    const fadeOut = setInterval(() => {
+      vol = Math.max(vol - 0.05, 0);
+      video.volume = vol;
+      if (vol <= 0) { video.muted = true; clearInterval(fadeOut); }
+    }, 60);
+    icon.textContent  = '🔇';
+    label.textContent = 'Tap for sound';
+    btn.classList.remove('unmuted');
+  }
+}
 
 // ════════════════════════
 // DELHI NCR BG SOUND TOGGLE
