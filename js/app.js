@@ -84,6 +84,20 @@ function showPage(page) {
     }
   }
 
+  // Play/pause Societies background audio
+  const socAudio = $('societies-bg-audio');
+  if (socAudio) {
+    if (page !== 'societies') {
+      socAudio.pause();
+      const icon  = $('societies-sound-icon');
+      const label = $('societies-sound-label');
+      const btn   = $('societies-sound-btn');
+      if (icon)  icon.textContent  = '🔇';
+      if (label) label.textContent = 'Tap for sound';
+      if (btn)   btn.classList.remove('unmuted');
+    }
+  }
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -743,6 +757,41 @@ function toggleHomeBgSound() {
       vol = Math.max(vol - 0.05, 0);
       video.volume = vol;
       if (vol <= 0) { video.muted = true; clearInterval(fadeOut); }
+    }, 60);
+    icon.textContent  = '🔇';
+    label.textContent = 'Tap for sound';
+    btn.classList.remove('unmuted');
+  }
+}
+
+// ════════════════════════
+// SOCIETIES BG MUSIC TOGGLE
+// ════════════════════════
+function toggleSocietiesBgSound() {
+  const audio = $('societies-bg-audio');
+  const btn   = $('societies-sound-btn');
+  const icon  = $('societies-sound-icon');
+  const label = $('societies-sound-label');
+  if (!audio || !btn) return;
+
+  if (audio.paused) {
+    audio.play().catch(() => {});
+    audio.volume = 0;
+    let vol = 0;
+    const fadeIn = setInterval(() => {
+      vol = Math.min(vol + 0.05, 0.4);
+      audio.volume = vol;
+      if (vol >= 0.4) clearInterval(fadeIn);
+    }, 60);
+    icon.textContent  = '🔊';
+    label.textContent = 'Tap to mute sound';
+    btn.classList.add('unmuted');
+  } else {
+    let vol = audio.volume;
+    const fadeOut = setInterval(() => {
+      vol = Math.max(vol - 0.05, 0);
+      audio.volume = vol;
+      if (vol <= 0) { audio.pause(); clearInterval(fadeOut); }
     }, 60);
     icon.textContent  = '🔇';
     label.textContent = 'Tap for sound';

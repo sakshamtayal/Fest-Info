@@ -172,6 +172,24 @@
 
     <!-- ────────── SOCIETIES PAGE ────────── -->
     <section class="page" id="page-societies">
+
+      <!-- Image Background (desktop only) -->
+      <div class="societies-img-bg" id="societies-img-bg">
+        <div class="societies-bg-image" style="background-image: url('assets/images/dtu-society-bg.jpg');"></div>
+        <div class="societies-img-overlay"></div>
+      </div>
+
+      <!-- Sound toggle button -->
+      <button class="societies-sound-btn" id="societies-sound-btn" onclick="toggleSocietiesBgSound()" title="Toggle sound">
+        <span class="sound-icon" id="societies-sound-icon">🔇</span>
+        <span class="sound-label" id="societies-sound-label">Tap for sound</span>
+      </button>
+
+      <!-- Hidden Audio element for soothing background song -->
+      <audio id="societies-bg-audio" loop>
+        <source src="assets/audio/soothing-piano.mp3" type="audio/mp3">
+      </audio>
+
       <div class="page-header section-title-anim">
         <div class="section-badge">🏛️ Student Communities</div>
         <h1>DTU Societies &amp; Clubs</h1>
