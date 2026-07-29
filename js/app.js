@@ -45,7 +45,7 @@ function showPage(page) {
       const label = $('home-sound-label');
       const btn   = $('home-sound-btn');
       if (icon)  icon.textContent  = '🔇';
-      if (label) label.textContent = 'Tap for sound';
+      if (label) label.textContent = 'Unmute';
       if (btn)   btn.classList.remove('unmuted');
     }
   }
@@ -62,7 +62,7 @@ function showPage(page) {
       const label = $('sound-label');
       const btn   = $('video-sound-btn');
       if (icon)  icon.textContent  = '🔇';
-      if (label) label.textContent = 'Tap for sound';
+      if (label) label.textContent = 'Unmute';
       if (btn)   btn.classList.remove('unmuted');
     }
   }
@@ -79,7 +79,7 @@ function showPage(page) {
       const label = $('college-sound-label');
       const btn   = $('college-sound-btn');
       if (icon)  icon.textContent  = '🔇';
-      if (label) label.textContent = 'Tap for sound';
+      if (label) label.textContent = 'Unmute';
       if (btn)   btn.classList.remove('unmuted');
     }
   }
@@ -93,7 +93,7 @@ function showPage(page) {
       const label = $('societies-sound-label');
       const btn   = $('societies-sound-btn');
       if (icon)  icon.textContent  = '🔇';
-      if (label) label.textContent = 'Tap for sound';
+      if (label) label.textContent = 'Unmute';
       if (btn)   btn.classList.remove('unmuted');
     }
   }
@@ -765,7 +765,7 @@ function toggleHomeBgSound() {
       if (vol >= 0.35) clearInterval(fadeIn);
     }, 60);
     icon.textContent  = '🔊';
-    label.textContent = 'Tap to mute sound';
+    label.textContent = 'Mute';
     btn.classList.add('unmuted');
   } else {
     let vol = video.volume;
@@ -775,7 +775,7 @@ function toggleHomeBgSound() {
       if (vol <= 0) { video.muted = true; clearInterval(fadeOut); }
     }, 60);
     icon.textContent  = '🔇';
-    label.textContent = 'Tap for sound';
+    label.textContent = 'Unmute';
     btn.classList.remove('unmuted');
   }
 }
@@ -800,7 +800,7 @@ function toggleSocietiesBgSound() {
       if (vol >= 0.4) clearInterval(fadeIn);
     }, 60);
     icon.textContent  = '🔊';
-    label.textContent = 'Tap to mute sound';
+    label.textContent = 'Mute';
     btn.classList.add('unmuted');
   } else {
     let vol = audio.volume;
@@ -810,7 +810,7 @@ function toggleSocietiesBgSound() {
       if (vol <= 0) { audio.pause(); clearInterval(fadeOut); }
     }, 60);
     icon.textContent  = '🔇';
-    label.textContent = 'Tap for sound';
+    label.textContent = 'Unmute';
     btn.classList.remove('unmuted');
   }
 }
@@ -835,7 +835,7 @@ function toggleCollegeBgSound() {
       if (vol >= 0.35) clearInterval(fadeIn);
     }, 60);
     icon.textContent  = '🔊';
-    label.textContent = 'Tap to mute sound';
+    label.textContent = 'Mute';
     btn.classList.add('unmuted');
   } else {
     let vol = video.volume;
@@ -845,7 +845,7 @@ function toggleCollegeBgSound() {
       if (vol <= 0) { video.muted = true; clearInterval(fadeOut); }
     }, 60);
     icon.textContent  = '🔇';
-    label.textContent = 'Tap for sound';
+    label.textContent = 'Unmute';
     btn.classList.remove('unmuted');
   }
 }
@@ -871,7 +871,7 @@ function toggleEventsBgSound() {
       if (vol >= 0.35) clearInterval(fadeIn);
     }, 60);
     icon.textContent  = '🔊';
-    label.textContent = 'Tap to mute sound';
+    label.textContent = 'Mute';
     btn.classList.add('unmuted');
   } else {
     // Mute — fade volume out smoothly
@@ -885,7 +885,7 @@ function toggleEventsBgSound() {
       }
     }, 60);
     icon.textContent  = '🔇';
-    label.textContent = 'Tap for sound';
+    label.textContent = 'Unmute';
     btn.classList.remove('unmuted');
   }
 }

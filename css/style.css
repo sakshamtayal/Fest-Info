@@ -86,8 +86,8 @@
   right: 24px;
   z-index: 10; /* direct child of #page-events — always on top */
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
+  gap: 6px;
+  padding: 7px 13px;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -96,7 +96,7 @@
   cursor: pointer;
   color: var(--text);
   font-family: var(--font-main);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   transition: all 0.3s ease;
@@ -119,8 +119,8 @@
   animation: none;
 }
 
-.sound-icon { font-size: 1.1rem; line-height: 1; }
-.sound-label { font-size: 0.78rem; color: var(--text-muted); }
+.sound-icon { font-size: 1rem; line-height: 1; }
+.sound-label { font-size: 0.74rem; color: var(--text-muted); }
 
 @keyframes soundPulse {
   0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 0 rgba(245,130,20,0.3); }
@@ -196,8 +196,8 @@
   right: 24px;
   z-index: 10;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
+  gap: 6px;
+  padding: 7px 13px;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -206,7 +206,7 @@
   cursor: pointer;
   color: var(--text);
   font-family: var(--font-main);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   transition: all 0.3s ease;
@@ -1954,8 +1954,8 @@ body::after {
   right: 24px;
   z-index: 10;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
+  gap: 6px;
+  padding: 7px 13px;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -1964,7 +1964,7 @@ body::after {
   cursor: pointer;
   color: var(--text);
   font-family: var(--font-main);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   transition: all 0.3s ease;
@@ -2273,8 +2273,8 @@ body::after {
   right: 24px;
   z-index: 10;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
+  gap: 6px;
+  padding: 7px 13px;
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2283,7 +2283,7 @@ body::after {
   cursor: pointer;
   color: var(--text);
   font-family: var(--font-main);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.03em;
   transition: all 0.3s ease;
