@@ -232,7 +232,7 @@ async function openEventModal(id) {
   const body = $('modal-body');
   if (body) {
     body.innerHTML = buildEventModal(ev);
-    openModal();
+    openModal('event');
   }
 }
 
@@ -403,7 +403,7 @@ async function openSocietyModal(id) {
   const body = $('modal-body');
   if (body) {
     body.innerHTML = buildSocietyModal(s);
-    openModal();
+    openModal('society');
   }
 }
 
@@ -580,7 +580,7 @@ async function openCollegeModal(id) {
   const body = $('modal-body');
   if (body) {
     body.innerHTML = buildCollegeModal(ev);
-    openModal();
+    openModal('college');
   }
 }
 
@@ -668,9 +668,25 @@ function buildCollegeModal(ev) {
 // ════════════════════════
 // MODAL
 // ════════════════════════
-function openModal() {
-  $('modal-overlay').classList.add('open');
-  $('modal').classList.add('open');
+function openModal(type = 'event') {
+  const modal = $('modal');
+  const overlay = $('modal-overlay');
+
+  // Reset theme classes
+  modal.classList.remove('modal--society', 'modal--college');
+  if (type === 'society') modal.classList.add('modal--society');
+  if (type === 'college') modal.classList.add('modal--college');
+
+  // Inject glow orb if not present
+  let glow = modal.querySelector('.modal-glow');
+  if (!glow) {
+    glow = document.createElement('div');
+    glow.className = 'modal-glow';
+    modal.appendChild(glow);
+  }
+
+  overlay.classList.add('open');
+  modal.classList.add('open');
   document.body.style.overflow = 'hidden';
   // Scroll modal to top
   $('modal-body').scrollTop = 0;
