@@ -495,10 +495,10 @@ function buildSocietyModal(s) {
     </div>
     ${badge}
     ${desc}
+    ${whatsapp}
     ${council}
     ${timeline}
     ${links}
-    ${whatsapp}
     ${contacts}
   `;
 }
